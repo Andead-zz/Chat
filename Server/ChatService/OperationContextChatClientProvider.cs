@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
-using Andead.Chat.Server.Interfaces;
 
-namespace Andead.Chat.Server
+namespace Andead.Chat.Server.Wcf
 {
     public class CurrentOperationContextChatClientProvider : IChatClientProvider
     {

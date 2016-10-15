@@ -1,4 +1,4 @@
-﻿namespace Andead.Chat.Server.Interfaces
+﻿namespace Andead.Chat.Server
 {
     public interface IChatClientProvider
     {

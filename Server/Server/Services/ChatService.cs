@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using Andead.Chat.Server.Entities;
-using Andead.Chat.Server.Interfaces;
+using Andead.Chat.Resources.Resources.Strings;
 
-namespace Andead.Chat.Server.Services
+namespace Andead.Chat.Server
 {
     public class ChatService : IChatService
     {
@@ -27,24 +26,23 @@ namespace Andead.Chat.Server.Services
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (currentClient == null)
             {
-                return SignInResponse.Failed("The callback channel provided was not correct.");
+                return SignInResponse.Failed(Errors.CallbackChannelFailure);
             }
 
             if (Clients.ContainsKey(currentClient))
             {
-                string currentName = Clients[currentClient];
-                return SignInResponse.Failed($"You are already in the chat as {currentName}.");
+                return SignInResponse.Failed(Errors.AlreadySignedIn);
             }
 
             string name = request.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
-                return SignInResponse.Failed("You must have a name to sign in.");
+                return SignInResponse.Failed(Errors.EmptyNameNotAllowed);
             }
 
             if (Clients.Values.Contains(name))
             {
-                return SignInResponse.Failed($"The name {name} has been taken by someone else.");
+                return SignInResponse.Failed(Errors.NameAlreadyTaken);
             }
 
             Clients[currentClient] = name;

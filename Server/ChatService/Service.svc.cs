@@ -1,17 +1,15 @@
 using System.ServiceModel;
-using Andead.Chat.Server.Entities;
-using Andead.Chat.Server.Interfaces;
 
-namespace Andead.Chat.Server
+namespace Andead.Chat.Server.Wcf
 {
     [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
-    public class ChatService : IChatService
+    public class Service : IChatService
     {
         private readonly IChatService _service;
 
-        public ChatService()
+        public Service()
         {
-            _service = new Services.ChatService(new CurrentOperationContextChatClientProvider());
+            _service = new ChatService(new CurrentOperationContextChatClientProvider());
         }
 
         public SignInResponse SignIn(SignInRequest request)

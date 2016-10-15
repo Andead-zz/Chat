@@ -1,8 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Andead.Chat.Server.Entities;
-using Andead.Chat.Server.Interfaces;
-using Andead.Chat.Server.Services;
+using Andead.Chat.Resources.Resources.Strings;
+using Andead.Chat.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -34,7 +33,7 @@ namespace ChatServiceTests
                 Assert.IsNotNull(response);
 
                 Assert.IsFalse(response.Success);
-                Assert.AreEqual(response.Message, "You must have a name to sign in.");
+                Assert.AreEqual(response.Message, Errors.EmptyNameNotAllowed);
             }
         }
 

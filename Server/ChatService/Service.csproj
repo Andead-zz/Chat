@@ -11,12 +11,12 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Andead.Chat.Server</RootNamespace>
-    <AssemblyName>ChatService</AssemblyName>
+    <RootNamespace>Andead.Chat.Server.Wcf</RootNamespace>
+    <AssemblyName>Service</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <WcfConfigValidationEnabled>True</WcfConfigValidationEnabled>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <UseIISExpress>true</UseIISExpress>
+    <UseIISExpress>false</UseIISExpress>
     <IISExpressSSLPort />
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
@@ -43,17 +43,16 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.ServiceModel.Web" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ChatService.svc" />
+    <Content Include="Service.svc" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChatService.svc.cs">
-      <DependentUpon>ChatService.svc</DependentUpon>
+    <Compile Include="Service.svc.cs">
+      <DependentUpon>Service.svc</DependentUpon>
     </Compile>
     <Compile Include="OperationContextChatClientProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -87,7 +86,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>63638</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63638/</IISUrl>
+          <IISUrl>http://localhost/Chat</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

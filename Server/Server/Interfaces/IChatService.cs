@@ -1,7 +1,6 @@
 ﻿using System.ServiceModel;
-using Andead.Chat.Server.Entities;
 
-namespace Andead.Chat.Server.Interfaces
+namespace Andead.Chat.Server
 {
     [ServiceContract(CallbackContract = typeof(IChatClient))]
     public interface IChatService
