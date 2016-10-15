@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatService", "Server\ChatService\ChatService.csproj", "{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WinFormsClient", "Clients\WinFormsClient\WinFormsClient.csproj", "{A5FB6392-A395-4075-BD3B-27C44D9489BD}"
+	ProjectSection(ProjectDependencies) = postProject
+		{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF} = {BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{83BDA6A2-BFD9-4B03-A99F-382DBB420598}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{4E4EC610-C59E-42B4-BEC0-7529AF3500A0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5FB6392-A395-4075-BD3B-27C44D9489BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5FB6392-A395-4075-BD3B-27C44D9489BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5FB6392-A395-4075-BD3B-27C44D9489BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5FB6392-A395-4075-BD3B-27C44D9489BD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BFADAE9C-2EB3-4200-8EA0-6637F5B9C6FF} = {83BDA6A2-BFD9-4B03-A99F-382DBB420598}
+		{A5FB6392-A395-4075-BD3B-27C44D9489BD} = {4E4EC610-C59E-42B4-BEC0-7529AF3500A0}
+	EndGlobalSection
+EndGlobal
