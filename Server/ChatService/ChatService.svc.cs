@@ -1,59 +1,32 @@
-using System.Collections.Generic;
 using System.ServiceModel;
+using Andead.Chat.Server.Entities;
+using Andead.Chat.Server.Interfaces;
 
-namespace Andead.Chat
+namespace Andead.Chat.Server
 {
-    [ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
+    [ServiceBehavior(InstanceContextMode = InstanceContextMode.Single)]
     public class ChatService : IChatService
     {
-        private static readonly IDictionary<IChatClient, string> Clients
-            = new Dictionary<IChatClient, string>();
+        private readonly IChatService _service;
+
+        public ChatService()
+        {
+            _service = new Services.ChatService(new CurrentOperationContextChatClientProvider());
+        }
 
         public SignInResponse SignIn(SignInRequest request)
         {
-            if (Clients.Values.Contains(request.Name))
-            {
-                return SignInResponse.Failed("Name has been taken by another client.");
-            }
-
-            var client = OperationContext.Current.GetCallbackChannel<IChatClient>();
-            Clients[client] = request.Name;
-
-            client.ReceiveMessage($"Welcome to the chat, {request.Name}!");
-
-            return SignInResponse.Successful();
+            return _service.SignIn(request);
         }
 
         public void SignOut()
         {
-            var client = OperationContext.Current.GetCallbackChannel<IChatClient>();
-
-            if (Clients.ContainsKey(client))
-            {
-                string name = Clients[client];
-                client.ReceiveMessage($"Goodbye, {name}!");
-
-                Clients.Remove(client);
-            }
+            _service.SignOut();
         }
 
         public void SendMessage(string message)
         {
-            var currentClient = OperationContext.Current
-                .GetCallbackChannel<IChatClient>();
-
-            if (!Clients.ContainsKey(currentClient))
-            {
-                return;
-            }
-
-            foreach (KeyValuePair<IChatClient, string> pair in Clients)
-            {
-                IChatClient chatClient = pair.Key;
-                string name = pair.Value;
-
-                chatClient.ReceiveMessage($"{name}: {message}");
-            }
+            _service.SendMessage(message);
         }
     }
 }

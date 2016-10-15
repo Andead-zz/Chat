@@ -1,6 +1,6 @@
 ﻿using System.ServiceModel;
 
-namespace Andead.Chat
+namespace Andead.Chat.Server.Interfaces
 {
     [ServiceContract]
     public interface IChatClient

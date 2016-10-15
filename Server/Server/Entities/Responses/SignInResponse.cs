@@ -1,6 +1,6 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Andead.Chat
+namespace Andead.Chat.Server.Entities
 {
     [DataContract]
     public class SignInResponse
