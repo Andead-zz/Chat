@@ -2,10 +2,10 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Andead.Chat.Client.Entities;
-using Andead.Chat.Client.WinForms.ChatService;
-using Andead.Chat.Client.WinForms.Entities;
-using Andead.Chat.Client.WinForms.Interfaces;
-using Andead.Chat.Client.WinForms.Services;
+using Andead.Chat.Client.ServiceModel.ChatService;
+using Andead.Chat.Client.ServiceModel.Entities;
+using Andead.Chat.Client.ServiceModel.Interfaces;
+using Andead.Chat.Client.ServiceModel.Services;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 

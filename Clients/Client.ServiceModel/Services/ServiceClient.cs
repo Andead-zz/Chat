@@ -1,13 +1,11 @@
 ﻿using System;
-using System.Collections.ObjectModel;
-using System.Linq;
 using System.Threading.Tasks;
 using Andead.Chat.Client.Entities;
 using Andead.Chat.Client.Interfaces;
-using Andead.Chat.Client.WinForms.ChatService;
-using Andead.Chat.Client.WinForms.Interfaces;
+using Andead.Chat.Client.ServiceModel.ChatService;
+using Andead.Chat.Client.ServiceModel.Interfaces;
 
-namespace Andead.Chat.Client.WinForms.Services
+namespace Andead.Chat.Client.ServiceModel.Services
 {
     public class ServiceClient : IServiceClient, IChatServiceCallback
     {

@@ -1,9 +1,10 @@
 ﻿using System;
 using System.ServiceModel;
-using Andead.Chat.Client.WinForms.ChatService;
-using Andead.Chat.Client.WinForms.Entities;
+using Andead.Chat.Client.ServiceModel.ChatService;
+using Andead.Chat.Client.ServiceModel.Entities;
+using Andead.Chat.Client.ServiceModel.Interfaces;
 
-namespace Andead.Chat.Client.WinForms.Interfaces
+namespace Andead.Chat.Client.ServiceModel.Services
 {
     public class WcfChatServiceFactory : IChatServiceFactory
     {

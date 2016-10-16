@@ -1,4 +1,4 @@
-﻿namespace Andead.Chat.Client.WinForms.Entities
+﻿namespace Andead.Chat.Client.ServiceModel.Entities
 {
     public class ConnectionConfiguration
     {

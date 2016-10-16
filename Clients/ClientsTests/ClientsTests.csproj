@@ -63,6 +63,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Client.ServiceModel\Client.ServiceModel.csproj">
+      <Project>{D61E670C-6C48-4133-A144-05C161146742}</Project>
+      <Name>Client.ServiceModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Client\Client.csproj">
       <Project>{0BA78689-340C-4A32-9DE2-D61B52460B55}</Project>
       <Name>Client</Name>

@@ -51,35 +51,21 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
-    <Reference Include="System.Runtime.Serialization" />
-    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationSettingsConnectionConfigurationProvider.cs" />
     <Compile Include="ChatForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ChatForm.Designer.cs">
       <DependentUpon>ChatForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Entities\ConnectionConfiguration.cs" />
-    <Compile Include="Interfaces\IChatServiceFactory.cs" />
-    <Compile Include="Interfaces\IConnectionConfigurationProvider.cs" />
-    <Compile Include="Interfaces\WcfChatServiceFactory.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Service References\ChatService\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
-    <Compile Include="Services\ApplicationSettingsConnectionConfigurationProvider.cs" />
-    <Compile Include="Services\DefaultConnectionConfigurationProvider.cs" />
-    <Compile Include="Services\ServiceClient.cs" />
     <Compile Include="LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -99,43 +85,6 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="Service References\ChatService\Andead.Chat.Client.WinForms.ChatService.SignInResponse.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </None>
-    <None Include="Service References\ChatService\Service.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ChatService\Service1.wsdl" />
-    <None Include="Service References\ChatService\Service3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ChatService\Service31.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\ChatService\Service32.xsd">
-      <SubType>Designer</SubType>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\ChatService\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ChatService\configuration91.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ChatService\configuration.svcinfo" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ChatService\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Service References\ChatService\Service1.disco" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.6.1">
@@ -150,6 +99,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Client.ServiceModel\Client.ServiceModel.csproj">
+      <Project>{d61e670c-6c48-4133-a144-05c161146742}</Project>
+      <Name>Client.ServiceModel</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Client\Client.csproj">
       <Project>{0BA78689-340C-4A32-9DE2-D61B52460B55}</Project>
       <Name>Client</Name>

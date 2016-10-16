@@ -1,8 +1,8 @@
-﻿using Andead.Chat.Client.WinForms.Entities;
-using Andead.Chat.Client.WinForms.Interfaces;
+﻿using Andead.Chat.Client.ServiceModel.Entities;
+using Andead.Chat.Client.ServiceModel.Interfaces;
 using Andead.Chat.Client.WinForms.Properties;
 
-namespace Andead.Chat.Client.WinForms.Services
+namespace Andead.Chat.Client.WinForms
 {
     public class ApplicationSettingsConnectionConfigurationProvider : IConnectionConfigurationProvider
     {
