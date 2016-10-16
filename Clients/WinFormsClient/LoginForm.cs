@@ -24,7 +24,17 @@ namespace Andead.Chat.Client.WinForms
                 new WcfChatServiceFactory());
 
             string name = nameTextBox.Text;
-            SignInResult result = await client.SignInAsync(name);
+            SignInResult result;
+
+            try
+            {
+                ((Button) sender).Enabled = false;
+                result = await client.SignInAsync(name);
+            }
+            finally
+            {
+                ((Button) sender).Enabled = true;
+            }
 
             if (!result.Success)
             {
@@ -43,9 +53,13 @@ namespace Andead.Chat.Client.WinForms
         {
             var chatForm = (ChatForm) sender;
 
-            if (chatForm.Client.SignedIn)
+            if (chatForm.Client != null)
             {
-                await chatForm.Client.SignOutAsync();
+                if (chatForm.Client.SignedIn)
+                {
+                    await chatForm.Client.SignOutAsync();
+                }
+
                 chatForm.Client.Dispose();
             }
 

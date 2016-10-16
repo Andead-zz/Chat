@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ServiceModel;
 
 namespace Andead.Chat.Server.Wcf
@@ -30,6 +31,11 @@ namespace Andead.Chat.Server.Wcf
         public int? GetOnlineCount()
         {
             return _service.GetOnlineCount();
+        }
+
+        public List<string> GetNamesOnline()
+        {
+            return _service.GetNamesOnline();
         }
     }
 }

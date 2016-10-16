@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading.Tasks;
 using Andead.Chat.Client.Entities;
 using Andead.Chat.Client.Interfaces;
@@ -38,7 +40,7 @@ namespace Andead.Chat.Client.WinForms.Services
 
         public bool SignedIn { get; private set; }
 
-        public async Task<int?> GetOnlineCount()
+        public async Task<int?> GetOnlineCountAsync()
         {
             return await Service.GetOnlineCountAsync();
         }
@@ -66,6 +68,11 @@ namespace Andead.Chat.Client.WinForms.Services
         public async Task SendAsync(String message)
         {
             await Service.SendMessageAsync(message);
+        }
+
+        public async Task<string[]> GetNamesOnlineAsync()
+        {
+            return await Service.GetNamesOnlineAsync();
         }
 
         public void Dispose()

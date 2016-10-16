@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Andead.Chat.Client.Entities;
+using System.Collections.ObjectModel;
 
 namespace Andead.Chat.Client.Interfaces
 {
@@ -8,7 +10,7 @@ namespace Andead.Chat.Client.Interfaces
     {
         bool SignedIn { get; }
 
-        Task<int?> GetOnlineCount();
+        Task<int?> GetOnlineCountAsync();
 
         Task<SignInResult> SignInAsync(string name);
 
@@ -17,5 +19,7 @@ namespace Andead.Chat.Client.Interfaces
         Task SignOutAsync();
 
         Task SendAsync(string message);
+
+        Task<string[]> GetNamesOnlineAsync();
     }
 }

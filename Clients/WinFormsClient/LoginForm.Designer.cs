@@ -33,7 +33,7 @@
             this.signInButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // textBox1
+            // nameTextBox
             // 
             this.nameTextBox.Location = new System.Drawing.Point(56, 9);
             this.nameTextBox.Name = "nameTextBox";
@@ -52,6 +52,7 @@
             // 
             // signInButton
             // 
+            this.signInButton.Enabled = false;
             this.signInButton.Location = new System.Drawing.Point(197, 7);
             this.signInButton.Name = "signInButton";
             this.signInButton.Size = new System.Drawing.Size(75, 23);
@@ -60,20 +61,20 @@
             this.signInButton.UseVisualStyleBackColor = true;
             this.signInButton.Click += new System.EventHandler(this.signInButton_Click);
             // 
-            // Login
+            // LoginForm
             // 
             this.AcceptButton = this.signInButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(284, 40);
             this.Controls.Add(this.signInButton);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.nameTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "LoginForm";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.ResumeLayout(false);
             this.PerformLayout();

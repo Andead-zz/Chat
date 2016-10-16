@@ -102,6 +102,9 @@
     <None Include="Service References\ChatService\Andead.Chat.Client.WinForms.ChatService.SignInResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\ChatService\Service.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Service References\ChatService\Service1.wsdl" />
     <None Include="Service References\ChatService\Service3.xsd">
       <SubType>Designer</SubType>

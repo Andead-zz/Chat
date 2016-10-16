@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Windows.Forms;
 using Andead.Chat.Client.Entities;
 using Andead.Chat.Client.Interfaces;
@@ -29,8 +31,37 @@ namespace Andead.Chat.Client.WinForms
                 Interval = 1000,
                 Enabled = true
             };
-            _onlineCountTimer.Tick += async (sender, args) => UpdateOnlineCount(await Client.GetOnlineCount());
+            _onlineCountTimer.Tick += OnTimerOnTick;
             _onlineCountTimer.Start();
+        }
+
+        private int? _onlineCount;
+
+        private async void OnTimerOnTick(object sender, EventArgs args)
+        {
+            int? onlineCount = await Client.GetOnlineCountAsync();
+            if (_onlineCount == onlineCount)
+            {
+                return;
+            }
+
+            _onlineCount = onlineCount;
+            UpdateOnlineCount(onlineCount);
+
+            string[] names = await Client.GetNamesOnlineAsync();
+            UpdateNames(names.ToArray<object>());
+        }
+
+        private void UpdateNames(object[] names)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<string[]>(UpdateNames), names);
+                return;
+            }
+
+            namesListBox.Items.Clear();
+            namesListBox.Items.AddRange(names);
         }
 
         protected override void OnClosing(CancelEventArgs e)
@@ -50,7 +81,7 @@ namespace Andead.Chat.Client.WinForms
                 return;
             }
 
-            onlineCountLabel.Text = onlineCount.HasValue ? $"{onlineCount} users online." : null;
+            Text = onlineCount.HasValue ? $"Chat ({onlineCount} users)" : "Chat";
         }
 
         private void ClientOnMessageReceived(object sender, MessageReceivedEventArgs args)
@@ -67,15 +98,29 @@ namespace Andead.Chat.Client.WinForms
 
         private async void button1_Click(Object sender, EventArgs e)
         {
-            if (string.IsNullOrWhiteSpace(textBox1.Text))
+            if (string.IsNullOrWhiteSpace(messageTextBox.Text))
             {
                 return;
             }
 
-            string message = textBox1.Text;
-            textBox1.Clear();
+            string message = messageTextBox.Text;
+            messageTextBox.Clear();
 
             await Client.SendAsync(message);
+        }
+
+        private void textBox1_TextChanged(Object sender, EventArgs e)
+        {
+            sendButton.Enabled = ((TextBox) sender).Text.Length > 0;
+        }
+
+        private void namesListBox_Click(Object sender, EventArgs e)
+        {
+            var selectedName = ((ListBox)sender).SelectedItem as string;
+            if (!string.IsNullOrEmpty(selectedName))
+            {
+                messageTextBox.AppendText($"{selectedName}, ");
+            }
         }
     }
 }

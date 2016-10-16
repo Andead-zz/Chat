@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Andead.Chat.Server
 {
@@ -16,5 +17,8 @@ namespace Andead.Chat.Server
 
         [OperationContract]
         int? GetOnlineCount();
+
+        [OperationContract]
+        List<string> GetNamesOnline();
     }
 }

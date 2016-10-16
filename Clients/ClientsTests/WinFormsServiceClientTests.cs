@@ -230,7 +230,7 @@ namespace ClientsTests
             var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
                 chatServiceFactory.Object);
 
-            int? result = await client.GetOnlineCount();
+            int? result = await client.GetOnlineCountAsync();
 
             Assert.AreEqual(testValue, result);
         }

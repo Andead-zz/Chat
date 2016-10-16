@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 using Andead.Chat.Resources.Resources.Strings;
 
@@ -91,6 +92,17 @@ namespace Andead.Chat.Server
             }
 
             return Clients.Count;
+        }
+
+        public List<string> GetNamesOnline()
+        {
+            IChatClient currentClient = _chatClientProvider.GetCurrent();
+            if (!Clients.ContainsKey(currentClient))
+            {
+                return null;
+            }
+
+            return Clients.Values.ToList();
         }
 
         private static void Broadcast(string message)

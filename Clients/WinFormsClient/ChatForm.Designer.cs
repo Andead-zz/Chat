@@ -28,107 +28,122 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.chatTextBox = new System.Windows.Forms.TextBox();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
-            this.onlineCountLabel = new System.Windows.Forms.ToolStripStatusLabel();
-            this.groupBox1.SuspendLayout();
-            this.statusStrip1.SuspendLayout();
+            this.sendButton = new System.Windows.Forms.Button();
+            this.messageTextBox = new System.Windows.Forms.TextBox();
+            this.namesListBox = new System.Windows.Forms.ListBox();
+            this.splitContainer = new System.Windows.Forms.SplitContainer();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
+            this.splitContainer.Panel1.SuspendLayout();
+            this.splitContainer.Panel2.SuspendLayout();
+            this.splitContainer.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(13, 13);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(190, 20);
-            this.textBox1.TabIndex = 0;
-            // 
-            // button1
-            // 
-            this.button1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.button1.Location = new System.Drawing.Point(209, 13);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(63, 20);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Go";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.chatTextBox);
-            this.groupBox1.Location = new System.Drawing.Point(13, 40);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(259, 247);
-            this.groupBox1.TabIndex = 2;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Chat";
             // 
             // chatTextBox
             // 
+            this.chatTextBox.BackColor = System.Drawing.SystemColors.Control;
             this.chatTextBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.chatTextBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.chatTextBox.Location = new System.Drawing.Point(3, 16);
+            this.chatTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.chatTextBox.Location = new System.Drawing.Point(0, 0);
             this.chatTextBox.Multiline = true;
             this.chatTextBox.Name = "chatTextBox";
             this.chatTextBox.ReadOnly = true;
             this.chatTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.chatTextBox.Size = new System.Drawing.Size(253, 228);
-            this.chatTextBox.TabIndex = 0;
+            this.chatTextBox.Size = new System.Drawing.Size(765, 548);
+            this.chatTextBox.TabIndex = 2;
             // 
-            // statusStrip1
+            // sendButton
             // 
-            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.onlineCountLabel});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 290);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(284, 22);
-            this.statusStrip1.TabIndex = 3;
-            this.statusStrip1.Text = "statusStrip1";
+            this.sendButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.sendButton.Enabled = false;
+            this.sendButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.sendButton.Location = new System.Drawing.Point(798, 568);
+            this.sendButton.Name = "sendButton";
+            this.sendButton.Size = new System.Drawing.Size(85, 24);
+            this.sendButton.TabIndex = 1;
+            this.sendButton.Text = "Send";
+            this.sendButton.UseVisualStyleBackColor = true;
+            this.sendButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // onlineCountLabel
+            // messageTextBox
             // 
-            this.onlineCountLabel.Name = "onlineCountLabel";
-            this.onlineCountLabel.Size = new System.Drawing.Size(0, 17);
+            this.messageTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.messageTextBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.messageTextBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.messageTextBox.Location = new System.Drawing.Point(12, 568);
+            this.messageTextBox.Name = "messageTextBox";
+            this.messageTextBox.Size = new System.Drawing.Size(780, 24);
+            this.messageTextBox.TabIndex = 0;
+            this.messageTextBox.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
+            // 
+            // namesListBox
+            // 
+            this.namesListBox.BackColor = System.Drawing.SystemColors.Control;
+            this.namesListBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.namesListBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.namesListBox.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.namesListBox.ItemHeight = 20;
+            this.namesListBox.Location = new System.Drawing.Point(0, 0);
+            this.namesListBox.Name = "namesListBox";
+            this.namesListBox.Size = new System.Drawing.Size(98, 548);
+            this.namesListBox.TabIndex = 3;
+            this.namesListBox.Click += new System.EventHandler(this.namesListBox_Click);
+            // 
+            // splitContainer
+            // 
+            this.splitContainer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.splitContainer.Location = new System.Drawing.Point(12, 12);
+            this.splitContainer.Margin = new System.Windows.Forms.Padding(0);
+            this.splitContainer.Name = "splitContainer";
+            // 
+            // splitContainer.Panel1
+            // 
+            this.splitContainer.Panel1.Controls.Add(this.namesListBox);
+            this.splitContainer.Panel1MinSize = 100;
+            // 
+            // splitContainer.Panel2
+            // 
+            this.splitContainer.Panel2.Controls.Add(this.chatTextBox);
+            this.splitContainer.Panel2MinSize = 200;
+            this.splitContainer.Size = new System.Drawing.Size(871, 550);
+            this.splitContainer.SplitterDistance = 100;
+            this.splitContainer.TabIndex = 4;
             // 
             // ChatForm
             // 
-            this.AcceptButton = this.button1;
+            this.AcceptButton = this.sendButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.AutoSize = true;
-            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ClientSize = new System.Drawing.Size(284, 312);
-            this.Controls.Add(this.statusStrip1);
-            this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.textBox1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.MaximizeBox = false;
+            this.ClientSize = new System.Drawing.Size(895, 602);
+            this.Controls.Add(this.splitContainer);
+            this.Controls.Add(this.sendButton);
+            this.Controls.Add(this.messageTextBox);
+            this.MinimumSize = new System.Drawing.Size(300, 180);
             this.Name = "ChatForm";
             this.ShowIcon = false;
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Client";
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
-            this.statusStrip1.ResumeLayout(false);
-            this.statusStrip1.PerformLayout();
+            this.Text = "Chat";
+            this.splitContainer.Panel1.ResumeLayout(false);
+            this.splitContainer.Panel2.ResumeLayout(false);
+            this.splitContainer.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).EndInit();
+            this.splitContainer.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.TextBox chatTextBox;
-        private System.Windows.Forms.StatusStrip statusStrip1;
-        private System.Windows.Forms.ToolStripStatusLabel onlineCountLabel;
+        private System.Windows.Forms.Button sendButton;
+        private System.Windows.Forms.TextBox messageTextBox;
+        private System.Windows.Forms.ListBox namesListBox;
+        private System.Windows.Forms.SplitContainer splitContainer;
     }
 }
 
