@@ -1,23 +1,35 @@
 ﻿using System;
-using System.ServiceModel;
 using System.Threading.Tasks;
+using Andead.Chat.Client.Entities;
+using Andead.Chat.Client.Interfaces;
 using Andead.Chat.Client.WinForms.ChatService;
-using Andead.Chat.Client.WinForms.Entities;
 using Andead.Chat.Client.WinForms.Interfaces;
 
 namespace Andead.Chat.Client.WinForms.Services
 {
-    internal class ServiceClient : IServiceClient, IChatServiceCallback
+    public class ServiceClient : IServiceClient, IChatServiceCallback
     {
-        private readonly IChatService _service;
+        private readonly IChatServiceFactory _chatServiceFactory;
+        private readonly IConnectionConfigurationProvider _connectionConfigurationProvider;
+        private IChatService _service;
 
-        internal ServiceClient()
+        public ServiceClient(IConnectionConfigurationProvider connectionConfigurationProvider,
+            IChatServiceFactory chatServiceFactory)
         {
-            _service = DuplexChannelFactory<IChatService>.CreateChannel(
-                new InstanceContext(this),
-                new NetTcpBinding(SecurityMode.None),
-                new EndpointAddress($"net.tcp://{Properties.Settings.Default.ServerName}/Service.svc"));
+            if (connectionConfigurationProvider == null)
+            {
+                throw new ArgumentNullException(nameof(connectionConfigurationProvider));
+            }
+            if (chatServiceFactory == null)
+            {
+                throw new ArgumentNullException(nameof(chatServiceFactory));
+            }
+
+            _connectionConfigurationProvider = connectionConfigurationProvider;
+            _chatServiceFactory = chatServiceFactory;
         }
+
+        private IChatService Service => _service ?? (_service = CreateService());
 
         void IChatServiceCallback.ReceiveMessage(string message)
         {
@@ -30,7 +42,7 @@ namespace Andead.Chat.Client.WinForms.Services
         {
             var request = new SignInRequest {Name = name};
 
-            SignInResponse response = await _service.SignInAsync(request);
+            SignInResponse response = await Service.SignInAsync(request);
 
             SignedIn = response.Success;
 
@@ -41,19 +53,24 @@ namespace Andead.Chat.Client.WinForms.Services
 
         public async Task SignOutAsync()
         {
-            await _service.SignOutAsync();
+            await Service.SignOutAsync();
 
             SignedIn = false;
         }
 
         public async Task SendAsync(String message)
         {
-            await _service.SendMessageAsync(message);
+            await Service.SendMessageAsync(message);
         }
 
         public void Dispose()
         {
-            ((ICommunicationObject) _service).Close(TimeSpan.FromSeconds(1));
+            _chatServiceFactory.Dispose(_service, _connectionConfigurationProvider.GetConfiguration());
+        }
+
+        private IChatService CreateService()
+        {
+            return _chatServiceFactory.Create(_connectionConfigurationProvider.GetConfiguration());
         }
     }
 }

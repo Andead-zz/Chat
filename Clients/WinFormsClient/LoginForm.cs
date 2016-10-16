@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
-using Andead.Chat.Client.WinForms.Entities;
+using Andead.Chat.Client.Entities;
+using Andead.Chat.Client.WinForms.Interfaces;
 using Andead.Chat.Client.WinForms.Services;
 
 namespace Andead.Chat.Client.WinForms
@@ -19,7 +20,8 @@ namespace Andead.Chat.Client.WinForms
 
         private async void signInButton_Click(Object sender, EventArgs e)
         {
-            var client = new ServiceClient();
+            var client = new ServiceClient(new ApplicationSettingsConnectionConfigurationProvider(),
+                new WcfChatServiceFactory());
 
             string name = nameTextBox.Text;
             SignInResult result = await client.SignInAsync(name);

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Andead.Chat.Client.WinForms.Entities
+namespace Andead.Chat.Client.Entities
 {
     public sealed class MessageReceivedEventArgs : EventArgs
     {

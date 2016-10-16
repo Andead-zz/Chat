@@ -1,8 +1,8 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Forms;
-using Andead.Chat.Client.WinForms.Entities;
-using Andead.Chat.Client.WinForms.Interfaces;
+using Andead.Chat.Client.Entities;
+using Andead.Chat.Client.Interfaces;
 
 namespace Andead.Chat.Client.WinForms
 {

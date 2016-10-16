@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Andead.Chat.Client.WinForms.Entities;
+using Andead.Chat.Client.Entities;
 
-namespace Andead.Chat.Client.WinForms.Interfaces
+namespace Andead.Chat.Client.Interfaces
 {
     public interface IServiceClient : IDisposable
     {
