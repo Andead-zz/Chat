@@ -10,11 +10,15 @@ namespace Andead.Chat.Client.WinForms
     public partial class ChatForm : Form
     {
         internal readonly IServiceClient Client;
+
+        private int? _onlineCount;
         private Timer _onlineCountTimer;
+        private string _serverName;
 
         public ChatForm(IServiceClient client)
         {
             Client = client;
+            _serverName = client.ServerName;
 
             client.MessageReceived += ClientOnMessageReceived;
 
@@ -33,8 +37,6 @@ namespace Andead.Chat.Client.WinForms
             _onlineCountTimer.Tick += OnTimerOnTick;
             _onlineCountTimer.Start();
         }
-
-        private int? _onlineCount;
 
         private async void OnTimerOnTick(object sender, EventArgs args)
         {
@@ -80,7 +82,7 @@ namespace Andead.Chat.Client.WinForms
                 return;
             }
 
-            Text = onlineCount.HasValue ? $"Chat ({onlineCount} users)" : "Chat";
+            Text = onlineCount.HasValue ? $"{_serverName} ({onlineCount} users)" : $"{_serverName}";
         }
 
         private void ClientOnMessageReceived(object sender, MessageReceivedEventArgs args)
@@ -115,7 +117,7 @@ namespace Andead.Chat.Client.WinForms
 
         private void namesListBox_Click(Object sender, EventArgs e)
         {
-            var selectedName = ((ListBox)sender).SelectedItem as string;
+            var selectedName = ((ListBox) sender).SelectedItem as string;
             if (!string.IsNullOrEmpty(selectedName))
             {
                 messageTextBox.AppendText($"{selectedName}, ");

@@ -38,6 +38,8 @@ namespace Andead.Chat.Client.ServiceModel.Services
 
         public bool SignedIn { get; private set; }
 
+        public string ServerName => _connectionConfigurationProvider.GetConfiguration().ServerName;
+
         public async Task<int?> GetOnlineCountAsync()
         {
             return await Service.GetOnlineCountAsync();

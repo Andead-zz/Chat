@@ -1,14 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Andead.Chat.Client.Entities;
-using System.Collections.ObjectModel;
 
 namespace Andead.Chat.Client.Interfaces
 {
     public interface IServiceClient : IDisposable
     {
         bool SignedIn { get; }
+
+        string ServerName { get; }
 
         Task<int?> GetOnlineCountAsync();
 
