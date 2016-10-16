@@ -94,14 +94,14 @@
     <None Include="Service References\ChatService\Andead.Chat.Client.WinForms.ChatService.SignInResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\ChatService\Service.wsdl" />
-    <None Include="Service References\ChatService\Service.xsd">
+    <None Include="Service References\ChatService\Service1.wsdl" />
+    <None Include="Service References\ChatService\Service3.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ChatService\Service1.xsd">
+    <None Include="Service References\ChatService\Service31.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Service References\ChatService\Service2.xsd">
+    <None Include="Service References\ChatService\Service32.xsd">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
@@ -124,7 +124,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Service References\ChatService\Service.disco" />
+    <None Include="Service References\ChatService\Service1.disco" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
