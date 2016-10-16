@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Andead.Chat.Client.WinForms.ChatService {
+namespace Andead.Chat.Client.WinForms.ChatService.xsd {
     using System.Runtime.Serialization;
     using System;
     
@@ -120,14 +120,14 @@ namespace Andead.Chat.Client.WinForms.ChatService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.IChatService", CallbackContract=typeof(Andead.Chat.Client.WinForms.ChatService.IChatServiceCallback))]
+    [System.ServiceModel.ServiceContractAttribute(ConfigurationName="ChatService.xsd.IChatService", CallbackContract=typeof(Andead.Chat.Client.WinForms.ChatService.xsd.IChatServiceCallback))]
     public interface IChatService {
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SignIn", ReplyAction="http://tempuri.org/IChatService/SignInResponse")]
-        Andead.Chat.Client.WinForms.ChatService.SignInResponse SignIn(Andead.Chat.Client.WinForms.ChatService.SignInRequest request);
+        Andead.Chat.Client.WinForms.ChatService.xsd.SignInResponse SignIn(Andead.Chat.Client.WinForms.ChatService.xsd.SignInRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SignIn", ReplyAction="http://tempuri.org/IChatService/SignInResponse")]
-        System.Threading.Tasks.Task<Andead.Chat.Client.WinForms.ChatService.SignInResponse> SignInAsync(Andead.Chat.Client.WinForms.ChatService.SignInRequest request);
+        System.Threading.Tasks.Task<Andead.Chat.Client.WinForms.ChatService.xsd.SignInResponse> SignInAsync(Andead.Chat.Client.WinForms.ChatService.xsd.SignInRequest request);
         
         [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/SignOut", ReplyAction="http://tempuri.org/IChatService/SignOutResponse")]
         void SignOut();
@@ -150,12 +150,12 @@ namespace Andead.Chat.Client.WinForms.ChatService {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface IChatServiceChannel : Andead.Chat.Client.WinForms.ChatService.IChatService, System.ServiceModel.IClientChannel {
+    public interface IChatServiceChannel : Andead.Chat.Client.WinForms.ChatService.xsd.IChatService, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class ChatServiceClient : System.ServiceModel.DuplexClientBase<Andead.Chat.Client.WinForms.ChatService.IChatService>, Andead.Chat.Client.WinForms.ChatService.IChatService {
+    public partial class ChatServiceClient : System.ServiceModel.DuplexClientBase<Andead.Chat.Client.WinForms.ChatService.xsd.IChatService>, Andead.Chat.Client.WinForms.ChatService.xsd.IChatService {
         
         public ChatServiceClient(System.ServiceModel.InstanceContext callbackInstance) : 
                 base(callbackInstance) {
@@ -177,11 +177,11 @@ namespace Andead.Chat.Client.WinForms.ChatService {
                 base(callbackInstance, binding, remoteAddress) {
         }
         
-        public Andead.Chat.Client.WinForms.ChatService.SignInResponse SignIn(Andead.Chat.Client.WinForms.ChatService.SignInRequest request) {
+        public Andead.Chat.Client.WinForms.ChatService.xsd.SignInResponse SignIn(Andead.Chat.Client.WinForms.ChatService.xsd.SignInRequest request) {
             return base.Channel.SignIn(request);
         }
         
-        public System.Threading.Tasks.Task<Andead.Chat.Client.WinForms.ChatService.SignInResponse> SignInAsync(Andead.Chat.Client.WinForms.ChatService.SignInRequest request) {
+        public System.Threading.Tasks.Task<Andead.Chat.Client.WinForms.ChatService.xsd.SignInResponse> SignInAsync(Andead.Chat.Client.WinForms.ChatService.xsd.SignInRequest request) {
             return base.Channel.SignInAsync(request);
         }
         

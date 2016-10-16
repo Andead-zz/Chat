@@ -19,14 +19,14 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://localhost:63638/ChatService.svc" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:63638/Service.svc" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="ChatService.xsd" MetadataType="Schema" ID="85a6f100-b9ff-4b16-a507-e020131d95cc" SourceId="1" SourceUrl="http://localhost:63638/ChatService.svc?xsd=xsd0" />
-    <MetadataFile FileName="ChatService.wsdl" MetadataType="Wsdl" ID="cba5ce17-46c7-4437-b225-cfdcbedd09c4" SourceId="1" SourceUrl="http://localhost:63638/ChatService.svc?wsdl" />
-    <MetadataFile FileName="ChatService1.xsd" MetadataType="Schema" ID="1132165f-643c-4d6f-92da-457d5e47c367" SourceId="1" SourceUrl="http://localhost:63638/ChatService.svc?xsd=xsd1" />
-    <MetadataFile FileName="ChatService2.xsd" MetadataType="Schema" ID="304d9b10-711c-4b6e-8b3c-0e608b2ec979" SourceId="1" SourceUrl="http://localhost:63638/ChatService.svc?xsd=xsd2" />
-    <MetadataFile FileName="ChatService.disco" MetadataType="Disco" ID="be3bb501-aa99-4805-9220-4ecddaf9d060" SourceId="1" SourceUrl="http://localhost:63638/ChatService.svc?disco" />
+    <MetadataFile FileName="Service.xsd" MetadataType="Schema" ID="4e05ec7e-e73c-4899-b974-3de85a642755" SourceId="1" SourceUrl="http://localhost:63638/Service.svc?xsd=xsd0" />
+    <MetadataFile FileName="Service.disco" MetadataType="Disco" ID="988418aa-4627-4dbd-be97-e9c60d16948c" SourceId="1" SourceUrl="http://localhost:63638/Service.svc?disco" />
+    <MetadataFile FileName="Service1.xsd" MetadataType="Schema" ID="cf43e79e-4790-4dd7-983c-0425d0d33456" SourceId="1" SourceUrl="http://localhost:63638/Service.svc?xsd=xsd2" />
+    <MetadataFile FileName="Service2.xsd" MetadataType="Schema" ID="b8fcddd3-8263-4f62-984a-7c8124141fac" SourceId="1" SourceUrl="http://localhost:63638/Service.svc?xsd=xsd1" />
+    <MetadataFile FileName="Service.wsdl" MetadataType="Wsdl" ID="4db4e8a4-d93f-4682-8844-a0b1a17cb9c7" SourceId="1" SourceUrl="http://localhost:63638/Service.svc?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
