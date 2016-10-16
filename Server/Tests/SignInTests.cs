@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Andead.Chat.Resources.Logging;
 using Andead.Chat.Resources.Resources.Strings;
 using Andead.Chat.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -42,7 +43,7 @@ namespace ChatServiceTests
             var clientProvider = new Mock<IChatClientProvider>();
             clientProvider.Setup(p => p.GetCurrent()).Returns(Mock.Of<IChatClient>());
 
-            IChatService service = new ChatService(clientProvider.Object);
+            IChatService service = new ChatService(clientProvider.Object, Mock.Of<ILogger>());
             return service;
         }
     }

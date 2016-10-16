@@ -1,25 +1,32 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Andead.Chat.Resources.Logging;
 using Andead.Chat.Resources.Resources.Strings;
 
 namespace Andead.Chat.Server
 {
     public class ChatService : IChatService
     {
-        private static readonly IDictionary<IChatClient, string> Clients
+        private readonly IDictionary<IChatClient, string> _clients
             = new Dictionary<IChatClient, string>();
 
         private readonly IChatClientProvider _chatClientProvider;
+        private readonly ILogger _logger;
 
-        public ChatService(IChatClientProvider chatClientProvider)
+        public ChatService(IChatClientProvider chatClientProvider, ILogger logger)
         {
             if (chatClientProvider == null)
             {
                 throw new ArgumentNullException(nameof(chatClientProvider));
             }
+            if (logger == null)
+            {
+                throw new ArgumentNullException(nameof(logger));
+            }
 
             _chatClientProvider = chatClientProvider;
+            _logger = logger;
         }
 
         public SignInResponse SignIn(SignInRequest request)
@@ -27,26 +34,30 @@ namespace Andead.Chat.Server
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (currentClient == null)
             {
+                _logger.Warn("Sign in failure: wrong callback channel.");
                 return SignInResponse.Failed(Errors.CallbackChannelFailure);
             }
 
-            if (Clients.ContainsKey(currentClient))
+            if (_clients.ContainsKey(currentClient))
             {
+                _logger.Warn("Sign in failure: already signed in.");
                 return SignInResponse.Failed(Errors.AlreadySignedIn);
             }
 
             string name = request.Name;
             if (string.IsNullOrWhiteSpace(name))
             {
+                _logger.Info("Sign in failure: empty name.", InfoCategory.Validation);
                 return SignInResponse.Failed(Errors.EmptyNameNotAllowed);
             }
 
-            if (Clients.Values.Contains(name))
+            if (_clients.Values.Contains(name))
             {
+                _logger.Info("Sign in failure: name already taken.", InfoCategory.Validation);
                 return SignInResponse.Failed(Errors.NameAlreadyTaken);
             }
 
-            Clients[currentClient] = name;
+            _clients[currentClient] = name;
 
             Broadcast($"{name} has joined the chat.");
 
@@ -56,15 +67,16 @@ namespace Andead.Chat.Server
         public void SignOut()
         {
             IChatClient currentClient = _chatClientProvider.GetCurrent();
-            if (!Clients.ContainsKey(currentClient))
+            if (!_clients.ContainsKey(currentClient))
             {
+                _logger.Warn("Sign out denied for a non-active client.");
                 return;
             }
 
-            string name = Clients[currentClient];
+            string name = _clients[currentClient];
             currentClient.ReceiveMessage($"Goodbye, {name}!");
 
-            Clients.Remove(currentClient);
+            _clients.Remove(currentClient);
 
             Broadcast($"{name} has left the chat.");
         }
@@ -72,12 +84,13 @@ namespace Andead.Chat.Server
         public void SendMessage(string message)
         {
             IChatClient currentClient = _chatClientProvider.GetCurrent();
-            if (!Clients.ContainsKey(currentClient))
+            if (!_clients.ContainsKey(currentClient))
             {
+                _logger.Warn("Sending message denied for a non-active client.");
                 return;
             }
 
-            string name = Clients[currentClient];
+            string name = _clients[currentClient];
 
             Broadcast($"{name}: {message}");
         }
@@ -85,31 +98,35 @@ namespace Andead.Chat.Server
         public int? GetOnlineCount()
         {
             IChatClient currentClient = _chatClientProvider.GetCurrent();
-            if (!Clients.ContainsKey(currentClient))
+            if (!_clients.ContainsKey(currentClient))
             {
+                _logger.Warn("Getting online count denied for a non-active client.");
                 return null;
             }
 
-            return Clients.Count;
+            return _clients.Count;
         }
 
         public List<string> GetNamesOnline()
         {
             IChatClient currentClient = _chatClientProvider.GetCurrent();
-            if (!Clients.ContainsKey(currentClient))
+            if (!_clients.ContainsKey(currentClient))
             {
+                _logger.Warn("Getting names online denied for a non-active client.");
                 return null;
             }
 
-            return Clients.Values.ToList();
+            return _clients.Values.ToList();
         }
 
-        private static void Broadcast(string message)
+        private void Broadcast(string message)
         {
-            foreach (IChatClient client in Clients.Keys)
+            foreach (IChatClient client in _clients.Keys)
             {
                 client.ReceiveMessage(message);
             }
+
+            _logger.Info(message, InfoCategory.Broadcast);
         }
     }
 }

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.ServiceModel;
+using Andead.Chat.Resources.Logging;
 
 namespace Andead.Chat.Server.Wcf
 {
@@ -8,9 +9,14 @@ namespace Andead.Chat.Server.Wcf
     {
         private readonly IChatService _service;
 
+        public Service(IChatService service)
+        {
+            _service = service;
+        }
+
         public Service()
         {
-            _service = new ChatService(new CurrentOperationContextChatClientProvider());
+            _service = new ChatService(new CurrentOperationContextChatClientProvider(), new NullLogger());
         }
 
         public SignInResponse SignIn(SignInRequest request)
