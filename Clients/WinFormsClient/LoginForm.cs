@@ -44,6 +44,7 @@ namespace Andead.Chat.Client.WinForms
             if (chatForm.Client.SignedIn)
             {
                 await chatForm.Client.SignOutAsync();
+                chatForm.Client.Dispose();
             }
 
             Show();

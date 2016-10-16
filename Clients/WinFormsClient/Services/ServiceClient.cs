@@ -13,7 +13,10 @@ namespace Andead.Chat.Client.WinForms.Services
 
         internal ServiceClient()
         {
-            _service = new ChatServiceClient(new InstanceContext(this));
+            _service = DuplexChannelFactory<IChatService>.CreateChannel(
+                new InstanceContext(this),
+                new NetTcpBinding(SecurityMode.None),
+                new EndpointAddress($"net.tcp://{Properties.Settings.Default.ServerName}/Service.svc"));
         }
 
         void IChatServiceCallback.ReceiveMessage(string message)
@@ -46,6 +49,11 @@ namespace Andead.Chat.Client.WinForms.Services
         public async Task SendAsync(String message)
         {
             await _service.SendMessageAsync(message);
+        }
+
+        public void Dispose()
+        {
+            ((ICommunicationObject) _service).Close(TimeSpan.FromSeconds(1));
         }
     }
 }
