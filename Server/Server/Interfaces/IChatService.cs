@@ -13,5 +13,8 @@ namespace Andead.Chat.Server
 
         [OperationContract(IsOneWay = true)]
         void SendMessage(string message);
+
+        [OperationContract]
+        int? GetOnlineCount();
     }
 }

@@ -140,6 +140,12 @@ namespace Andead.Chat.Client.WinForms.ChatService {
         
         [System.ServiceModel.OperationContractAttribute(IsOneWay=true, Action="http://tempuri.org/IChatService/SendMessage")]
         System.Threading.Tasks.Task SendMessageAsync(string message);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetOnlineCount", ReplyAction="http://tempuri.org/IChatService/GetOnlineCountResponse")]
+        System.Nullable<int> GetOnlineCount();
+        
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IChatService/GetOnlineCount", ReplyAction="http://tempuri.org/IChatService/GetOnlineCountResponse")]
+        System.Threading.Tasks.Task<System.Nullable<int>> GetOnlineCountAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -199,6 +205,14 @@ namespace Andead.Chat.Client.WinForms.ChatService {
         
         public System.Threading.Tasks.Task SendMessageAsync(string message) {
             return base.Channel.SendMessageAsync(message);
+        }
+        
+        public System.Nullable<int> GetOnlineCount() {
+            return base.Channel.GetOnlineCount();
+        }
+        
+        public System.Threading.Tasks.Task<System.Nullable<int>> GetOnlineCountAsync() {
+            return base.Channel.GetOnlineCountAsync();
         }
     }
 }

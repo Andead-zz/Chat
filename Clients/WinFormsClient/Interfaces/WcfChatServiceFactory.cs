@@ -7,10 +7,10 @@ namespace Andead.Chat.Client.WinForms.Interfaces
 {
     public class WcfChatServiceFactory : IChatServiceFactory
     {
-        public IChatService Create(ConnectionConfiguration configuration)
+        public IChatService Create(ConnectionConfiguration configuration, IChatServiceCallback callbackClient)
         {
             IChatService channel = DuplexChannelFactory<IChatService>.CreateChannel(
-                new InstanceContext(this),
+                new InstanceContext(callbackClient),
                 new NetTcpBinding(SecurityMode.None),
                 new EndpointAddress($"net.tcp://{configuration.ServerName}/Service.svc"));
 

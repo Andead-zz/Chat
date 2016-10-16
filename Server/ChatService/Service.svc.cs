@@ -26,5 +26,10 @@ namespace Andead.Chat.Server.Wcf
         {
             _service.SendMessage(message);
         }
+
+        public int? GetOnlineCount()
+        {
+            return _service.GetOnlineCount();
+        }
     }
 }

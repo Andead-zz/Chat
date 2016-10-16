@@ -8,6 +8,8 @@ namespace Andead.Chat.Client.Interfaces
     {
         bool SignedIn { get; }
 
+        Task<int?> GetOnlineCount();
+
         Task<SignInResult> SignInAsync(string name);
 
         event EventHandler<MessageReceivedEventArgs> MessageReceived;

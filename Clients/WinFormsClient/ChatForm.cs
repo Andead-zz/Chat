@@ -9,6 +9,7 @@ namespace Andead.Chat.Client.WinForms
     public partial class ChatForm : Form
     {
         internal readonly IServiceClient Client;
+        private Timer _onlineCountTimer;
 
         public ChatForm(IServiceClient client)
         {
@@ -19,11 +20,37 @@ namespace Andead.Chat.Client.WinForms
             InitializeComponent();
         }
 
+        protected override void OnLoad(EventArgs e)
+        {
+            base.OnLoad(e);
+
+            _onlineCountTimer = new Timer
+            {
+                Interval = 1000,
+                Enabled = true
+            };
+            _onlineCountTimer.Tick += async (sender, args) => UpdateOnlineCount(await Client.GetOnlineCount());
+            _onlineCountTimer.Start();
+        }
+
         protected override void OnClosing(CancelEventArgs e)
         {
             Client.MessageReceived -= ClientOnMessageReceived;
 
+            _onlineCountTimer?.Stop();
+
             base.OnClosing(e);
+        }
+
+        private void UpdateOnlineCount(int? onlineCount)
+        {
+            if (InvokeRequired)
+            {
+                Invoke(new Action<int?>(UpdateOnlineCount), onlineCount);
+                return;
+            }
+
+            onlineCountLabel.Text = onlineCount.HasValue ? $"{onlineCount} users online." : null;
         }
 
         private void ClientOnMessageReceived(object sender, MessageReceivedEventArgs args)

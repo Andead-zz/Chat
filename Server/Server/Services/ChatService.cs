@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ServiceModel;
 using Andead.Chat.Resources.Resources.Strings;
 
 namespace Andead.Chat.Server
@@ -79,6 +80,17 @@ namespace Andead.Chat.Server
             string name = Clients[currentClient];
 
             Broadcast($"{name}: {message}");
+        }
+
+        public int? GetOnlineCount()
+        {
+            IChatClient currentClient = _chatClientProvider.GetCurrent();
+            if (!Clients.ContainsKey(currentClient))
+            {
+                return null;
+            }
+
+            return Clients.Count;
         }
 
         private static void Broadcast(string message)

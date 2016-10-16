@@ -38,6 +38,11 @@ namespace Andead.Chat.Client.WinForms.Services
 
         public bool SignedIn { get; private set; }
 
+        public async Task<int?> GetOnlineCount()
+        {
+            return await Service.GetOnlineCountAsync();
+        }
+
         public async Task<SignInResult> SignInAsync(string name)
         {
             var request = new SignInRequest {Name = name};
@@ -70,7 +75,7 @@ namespace Andead.Chat.Client.WinForms.Services
 
         private IChatService CreateService()
         {
-            return _chatServiceFactory.Create(_connectionConfigurationProvider.GetConfiguration());
+            return _chatServiceFactory.Create(_connectionConfigurationProvider.GetConfiguration(), this);
         }
     }
 }

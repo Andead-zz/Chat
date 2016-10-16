@@ -57,7 +57,8 @@ namespace ClientsTests
                 .Callback<SignInRequest>(r => receivedName = r.Name);
 
             var chatServiceFactory = new Mock<IChatServiceFactory>();
-            chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+            chatServiceFactory.Setup(
+                    f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                 .Returns(() => chatService.Object);
 
             var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
@@ -85,7 +86,8 @@ namespace ClientsTests
                     .Returns<SignInRequest>(request => Task.FromResult(response));
 
                 var chatServiceFactory = new Mock<IChatServiceFactory>();
-                chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+                chatServiceFactory.Setup(
+                        f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                     .Returns(() => chatService.Object);
 
                 var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
@@ -116,7 +118,8 @@ namespace ClientsTests
                     .Returns<SignInRequest>(request => Task.FromResult(response));
 
                 var chatServiceFactory = new Mock<IChatServiceFactory>();
-                chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+                chatServiceFactory.Setup(
+                        f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                     .Returns(() => chatService.Object);
 
                 var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
@@ -132,7 +135,8 @@ namespace ClientsTests
         public async Task ServiceClient_AfterSignOutAsync_HasFalseSignedInValue()
         {
             var chatServiceFactory = new Mock<IChatServiceFactory>();
-            chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+            chatServiceFactory.Setup(
+                    f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                 .Returns(Mock.Of<IChatService>());
 
             var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
@@ -157,7 +161,8 @@ namespace ClientsTests
                 .Callback<string>(s => receivedMessage = s);
 
             var chatServiceFactory = new Mock<IChatServiceFactory>();
-            chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+            chatServiceFactory.Setup(
+                    f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                 .Returns(() => chatService.Object);
 
             var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
@@ -175,13 +180,14 @@ namespace ClientsTests
             string receivedMessage = null;
 
             var chatServiceFactory = new Mock<IChatServiceFactory>();
-            chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+            chatServiceFactory.Setup(
+                    f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                 .Returns(Mock.Of<IChatService>());
 
             var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
                 chatServiceFactory.Object);
 
-            client.MessageReceived += (sender, args) => receivedMessage = args.Message; 
+            client.MessageReceived += (sender, args) => receivedMessage = args.Message;
 
             ((IChatServiceCallback) client).ReceiveMessage(testMessage);
 
@@ -192,7 +198,8 @@ namespace ClientsTests
         public void ServiceClient_OnDispose_DisposesChatService()
         {
             var chatServiceFactory = new Mock<IChatServiceFactory>();
-            chatServiceFactory.Setup(f => f.Create(It.IsAny<ConnectionConfiguration>()))
+            chatServiceFactory.Setup(
+                    f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
                 .Returns(Mock.Of<IChatService>());
 
             var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
@@ -202,6 +209,30 @@ namespace ClientsTests
 
             chatServiceFactory.Verify(s => s.Dispose(It.IsAny<IChatService>(),
                 It.IsAny<ConnectionConfiguration>()), Times.AtLeastOnce);
+        }
+
+        [TestMethod]
+        public async Task ServiceClient_GetOnlineCount_ReturnsCorrectValue()
+        {
+            int? testValue = 3;
+
+            var chatService = new Mock<IChatService>();
+            chatService.Setup(s => s.GetOnlineCount())
+                .Returns(testValue);
+            chatService.Setup(s => s.GetOnlineCountAsync())
+                .Returns(() => Task.FromResult(testValue));
+
+            var chatServiceFactory = new Mock<IChatServiceFactory>();
+            chatServiceFactory.Setup(
+                    f => f.Create(It.IsAny<ConnectionConfiguration>(), It.IsAny<IChatServiceCallback>()))
+                .Returns(() => chatService.Object);
+
+            var client = new ServiceClient(Mock.Of<IConnectionConfigurationProvider>(),
+                chatServiceFactory.Object);
+
+            int? result = await client.GetOnlineCount();
+
+            Assert.AreEqual(testValue, result);
         }
     }
 }

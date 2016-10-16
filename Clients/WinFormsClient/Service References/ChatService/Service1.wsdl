@@ -4,27 +4,6 @@
     <wsp:ExactlyOne>
       <wsp:All>
         <msb:BinaryEncoding xmlns:msb="http://schemas.microsoft.com/ws/06/2004/mspolicy/netbinary1" />
-        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
-          <wsp:Policy>
-            <sp:TransportToken>
-              <wsp:Policy>
-                <msf:WindowsTransportSecurity xmlns:msf="http://schemas.microsoft.com/ws/2006/05/framing/policy">
-                  <msf:ProtectionLevel>EncryptAndSign</msf:ProtectionLevel>
-                </msf:WindowsTransportSecurity>
-              </wsp:Policy>
-            </sp:TransportToken>
-            <sp:AlgorithmSuite>
-              <wsp:Policy>
-                <sp:Basic256 />
-              </wsp:Policy>
-            </sp:AlgorithmSuite>
-            <sp:Layout>
-              <wsp:Policy>
-                <sp:Strict />
-              </wsp:Policy>
-            </sp:Layout>
-          </wsp:Policy>
-        </sp:TransportBinding>
         <wsaw:UsingAddressing />
       </wsp:All>
     </wsp:ExactlyOne>
@@ -51,6 +30,12 @@
   <wsdl:message name="IChatService_SendMessage_InputMessage">
     <wsdl:part name="parameters" element="tns:SendMessage" />
   </wsdl:message>
+  <wsdl:message name="IChatService_GetOnlineCount_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetOnlineCount" />
+  </wsdl:message>
+  <wsdl:message name="IChatService_GetOnlineCount_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetOnlineCountResponse" />
+  </wsdl:message>
   <wsdl:message name="IChatService_ReceiveMessage_OutputCallbackMessage">
     <wsdl:part name="parameters" element="tns:ReceiveMessage" />
   </wsdl:message>
@@ -65,6 +50,10 @@
     </wsdl:operation>
     <wsdl:operation name="SendMessage">
       <wsdl:input wsaw:Action="http://tempuri.org/IChatService/SendMessage" message="tns:IChatService_SendMessage_InputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetOnlineCount">
+      <wsdl:input wsaw:Action="http://tempuri.org/IChatService/GetOnlineCount" message="tns:IChatService_GetOnlineCount_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IChatService/GetOnlineCountResponse" message="tns:IChatService_GetOnlineCount_OutputMessage" />
     </wsdl:operation>
     <wsdl:operation name="ReceiveMessage">
       <wsdl:output wsaw:Action="http://tempuri.org/IChatService/ReceiveMessage" message="tns:IChatService_ReceiveMessage_OutputCallbackMessage" />
@@ -97,6 +86,15 @@
         <soap12:body use="literal" />
       </wsdl:input>
     </wsdl:operation>
+    <wsdl:operation name="GetOnlineCount">
+      <soap12:operation soapAction="http://tempuri.org/IChatService/GetOnlineCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="ReceiveMessage">
       <soap12:operation soapAction="http://tempuri.org/IChatService/ReceiveMessage" style="document" />
       <wsdl:output>
@@ -109,9 +107,6 @@
       <soap12:address location="net.tcp://andrew-pc/Service.svc" />
       <wsa10:EndpointReference>
         <wsa10:Address>net.tcp://andrew-pc/Service.svc</wsa10:Address>
-        <Identity xmlns="http://schemas.xmlsoap.org/ws/2006/02/addressingidentity">
-          <Spn>host/Andrew-PC</Spn>
-        </Identity>
       </wsa10:EndpointReference>
     </wsdl:port>
   </wsdl:service>
