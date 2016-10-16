@@ -1,4 +1,4 @@
-namespace Andead.Chat.Resources.Logging
+namespace Andead.Chat.Common.Logging
 {
     public enum InfoCategory
     {

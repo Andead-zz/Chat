@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Andead.Chat.Resources.Logging;
-using Andead.Chat.Resources.Resources.Strings;
+using Andead.Chat.Common.Logging;
+using Andead.Chat.Common.Policy;
+using Andead.Chat.Common.Resources.Strings;
 
 namespace Andead.Chat.Server
 {
     public class ChatService : IChatService
     {
+        private readonly IChatClientProvider _chatClientProvider;
+
         private readonly IDictionary<IChatClient, string> _clients
             = new Dictionary<IChatClient, string>();
 
-        private readonly IChatClientProvider _chatClientProvider;
         private readonly ILogger _logger;
 
         public ChatService(IChatClientProvider chatClientProvider, ILogger logger)
@@ -34,13 +36,13 @@ namespace Andead.Chat.Server
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (currentClient == null)
             {
-                _logger.Warn("Sign in failure: wrong callback channel.");
+                _logger.Warn("Sign in failure: wrong callback channel.", WarnCategory.InvalidRequest);
                 return SignInResponse.Failed(Errors.CallbackChannelFailure);
             }
 
             if (_clients.ContainsKey(currentClient))
             {
-                _logger.Warn("Sign in failure: already signed in.");
+                _logger.Warn("Sign in failure: already signed in.", WarnCategory.InvalidRequest);
                 return SignInResponse.Failed(Errors.AlreadySignedIn);
             }
 
@@ -49,6 +51,12 @@ namespace Andead.Chat.Server
             {
                 _logger.Info("Sign in failure: empty name.", InfoCategory.Validation);
                 return SignInResponse.Failed(Errors.EmptyNameNotAllowed);
+            }
+
+            if (name.Length > Limits.UsernameMaxLength)
+            {
+                _logger.Info("Sign in failure: name length exceeded limits.", InfoCategory.Validation);
+                return SignInResponse.Failed(Errors.NameLengthExceededLimits);
             }
 
             if (_clients.Values.Contains(name))
@@ -69,7 +77,7 @@ namespace Andead.Chat.Server
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (!_clients.ContainsKey(currentClient))
             {
-                _logger.Warn("Sign out denied for a non-active client.");
+                _logger.Warn("Sign out denied for a non-active client.", WarnCategory.AccessDenied);
                 return;
             }
 
@@ -81,18 +89,38 @@ namespace Andead.Chat.Server
             Broadcast($"{name} has left the chat.");
         }
 
-        public void SendMessage(string message)
+        public SendMessageResponse SendMessage(SendMessageRequest request)
         {
+            if (request == null)
+            {
+                _logger.Warn("Sending message denied for a null request.", WarnCategory.InvalidRequest);
+                return SendMessageResponse.Failed(Errors.InvalidRequest);
+            }
+
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (!_clients.ContainsKey(currentClient))
             {
-                _logger.Warn("Sending message denied for a non-active client.");
-                return;
+                _logger.Warn("Sending message denied for a non-active client.", WarnCategory.AccessDenied);
+                return SendMessageResponse.Failed(Errors.AccessDenied);
+            }
+
+            if (string.IsNullOrWhiteSpace(request.Message))
+            {
+                _logger.Warn("Sending empty message denied.", WarnCategory.Validate);
+                return SendMessageResponse.Failed(Errors.MessageEmpty);
+            }
+
+            if (request.Message.Length > Limits.MessageMaxLength)
+            {
+                _logger.Warn("Sending a message with a length exceeding limits was denied.", WarnCategory.Validate);
+                return SendMessageResponse.Failed(Errors.MessageLengthMustBeWithinLimits);
             }
 
             string name = _clients[currentClient];
 
-            Broadcast($"{name}: {message}");
+            Broadcast($"{name}: {request.Message}");
+
+            return SendMessageResponse.Successful();
         }
 
         public int? GetOnlineCount()
@@ -100,7 +128,7 @@ namespace Andead.Chat.Server
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (!_clients.ContainsKey(currentClient))
             {
-                _logger.Warn("Getting online count denied for a non-active client.");
+                _logger.Warn("Getting online count denied for a non-active client.", WarnCategory.AccessDenied);
                 return null;
             }
 
@@ -112,7 +140,7 @@ namespace Andead.Chat.Server
             IChatClient currentClient = _chatClientProvider.GetCurrent();
             if (!_clients.ContainsKey(currentClient))
             {
-                _logger.Warn("Getting names online denied for a non-active client.");
+                _logger.Warn("Getting names online denied for a non-active client.", WarnCategory.AccessDenied);
                 return null;
             }
 
@@ -126,7 +154,7 @@ namespace Andead.Chat.Server
                 client.ReceiveMessage(message);
             }
 
-            _logger.Info(message, InfoCategory.Broadcast);
+            _logger.Trace(message);
         }
     }
 }

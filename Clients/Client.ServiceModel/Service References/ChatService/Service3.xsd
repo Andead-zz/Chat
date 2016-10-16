@@ -13,4 +13,17 @@
     </xs:sequence>
   </xs:complexType>
   <xs:element name="SignInResponse" nillable="true" type="tns:SignInResponse" />
+  <xs:complexType name="SendMessageRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SendMessageRequest" nillable="true" type="tns:SendMessageRequest" />
+  <xs:complexType name="SendMessageResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Message" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Success" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SendMessageResponse" nillable="true" type="tns:SendMessageResponse" />
 </xs:schema>

@@ -9,11 +9,11 @@ namespace Andead.Chat.Client.WinForms
 {
     public partial class ChatForm : Form
     {
+        private readonly string _serverName;
         internal readonly IServiceClient Client;
 
         private int? _onlineCount;
         private Timer _onlineCountTimer;
-        private string _serverName;
 
         public ChatForm(IServiceClient client)
         {
@@ -105,9 +105,22 @@ namespace Andead.Chat.Client.WinForms
             }
 
             string message = messageTextBox.Text;
-            messageTextBox.Clear();
 
-            await Client.SendAsync(message);
+            SendMessageResult result;
+            try
+            {
+                sendButton.Enabled = false;
+                result = await Client.SendAsync(message);
+            }
+            finally
+            {
+                sendButton.Enabled = true;
+            }
+
+            if (result.Success)
+            {
+                messageTextBox.Clear();
+            }
         }
 
         private void textBox1_TextChanged(Object sender, EventArgs e)

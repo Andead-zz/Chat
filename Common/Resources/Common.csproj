@@ -7,7 +7,7 @@
     <ProjectGuid>{F9E6727D-BB3B-484B-B4DC-4067F4EFDF80}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Andead.Chat.Resources</RootNamespace>
+    <RootNamespace>Andead.Chat.Common</RootNamespace>
     <AssemblyName>Resources</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,6 +37,8 @@
     <Compile Include="Logging\ILogger.cs" />
     <Compile Include="Logging\InfoCategory.cs" />
     <Compile Include="Logging\NullLogger.cs" />
+    <Compile Include="Logging\WarnCategory.cs" />
+    <Compile Include="Policy\Limits.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resources\Strings\Errors.cs" />
   </ItemGroup>

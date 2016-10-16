@@ -18,7 +18,7 @@ namespace Andead.Chat.Client.Interfaces
 
         Task SignOutAsync();
 
-        Task SendAsync(string message);
+        Task<SendMessageResult> SendAsync(string message);
 
         Task<string[]> GetNamesOnlineAsync();
     }

@@ -1,12 +1,10 @@
-﻿namespace Andead.Chat.Resources.Logging
+﻿namespace Andead.Chat.Common.Logging
 {
     public interface ILogger
     {
-        void Info(string message);
-
         void Info(string message, InfoCategory category);
 
-        void Warn(string message);
+        void Warn(string message, WarnCategory category);
 
         void Trace(string message);
     }

@@ -36,6 +36,8 @@
     <Reference Include="System.ServiceModel" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entities\Requests\SendMessageRequest.cs" />
+    <Compile Include="Entities\Responses\SendMessageResponse.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Interfaces\IChatClient.cs" />
     <Compile Include="Interfaces\IChatClientProvider.cs" />

@@ -1,5 +1,5 @@
 ﻿using System;
-using Andead.Chat.Resources.Logging;
+using Andead.Chat.Common.Logging;
 
 namespace ServiceHost
 {
@@ -17,19 +17,14 @@ namespace ServiceHost
             _logger = logger;
         }
 
-        public void Info(string message)
-        {
-            _logger.Info(message);
-        }
-
         public void Info(string message, InfoCategory category)
         {
-            Info($"{category}: {message}");
+            _logger.Info($"{category}: {message}");
         }
 
-        public void Warn(string message)
+        public void Warn(string message, WarnCategory category)
         {
-            _logger.Warn(message);
+            _logger.Warn($"{category}: {message}");
         }
 
         public void Trace(string message)

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using Andead.Chat.Resources.Logging;
-using Andead.Chat.Resources.Resources.Strings;
+using Andead.Chat.Common.Logging;
+using Andead.Chat.Common.Policy;
+using Andead.Chat.Common.Resources.Strings;
 using Andead.Chat.Server;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -21,7 +22,7 @@ namespace ChatServiceTests
                 new SignInRequest(),
                 new SignInRequest {Name = null},
                 new SignInRequest {Name = string.Empty}
-            }.Concat(Enumerable.Range(1, 10)
+            }.Concat(Enumerable.Range(1, Limits.UsernameMaxLength)
                 .Select(i => new SignInRequest
                 {
                     Name = Enumerable.Repeat(" ", i).Aggregate((s, c) => s + c)
@@ -34,8 +35,24 @@ namespace ChatServiceTests
                 Assert.IsNotNull(response);
 
                 Assert.IsFalse(response.Success);
-                Assert.AreEqual(response.Message, Errors.EmptyNameNotAllowed);
+                Assert.AreEqual(Errors.EmptyNameNotAllowed, response.Message);
             }
+        }
+
+        [TestMethod]
+        public void SignIn_WithUsernameExceedingLimits_ReturnsFailure()
+        {
+            IChatService service = CreateService();
+
+            string name = string.Join("", Enumerable.Repeat("A", Limits.UsernameMaxLength + 1));
+
+            var request = new SignInRequest {Name = name};
+
+            SignInResponse response = service.SignIn(request);
+
+            Assert.IsNotNull(response);
+            Assert.IsFalse(response.Success);
+            Assert.AreEqual(Errors.NameLengthExceededLimits, response.Message);
         }
 
         private static IChatService CreateService()

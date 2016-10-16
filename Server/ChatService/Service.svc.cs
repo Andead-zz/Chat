@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.ServiceModel;
-using Andead.Chat.Resources.Logging;
+using Andead.Chat.Common.Logging;
 
 namespace Andead.Chat.Server.Wcf
 {
@@ -29,9 +29,9 @@ namespace Andead.Chat.Server.Wcf
             _service.SignOut();
         }
 
-        public void SendMessage(string message)
+        public SendMessageResponse SendMessage(SendMessageRequest request)
         {
-            _service.SendMessage(message);
+            return _service.SendMessage(request);
         }
 
         public int? GetOnlineCount()

@@ -65,9 +65,15 @@ namespace Andead.Chat.Client.ServiceModel.Services
             SignedIn = false;
         }
 
-        public async Task SendAsync(String message)
+        public async Task<SendMessageResult> SendAsync(String message)
         {
-            await Service.SendMessageAsync(message);
+            var request = new SendMessageRequest {Message = message};
+
+            SendMessageResponse response = await Service.SendMessageAsync(request);
+
+            var result = new SendMessageResult {Message = response.Message, Success = response.Success};
+
+            return result;
         }
 
         public async Task<string[]> GetNamesOnlineAsync()

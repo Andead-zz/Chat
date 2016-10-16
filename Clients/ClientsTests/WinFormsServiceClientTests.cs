@@ -154,11 +154,12 @@ namespace ClientsTests
             string receivedMessage = null;
 
             var chatService = new Mock<IChatService>();
-            chatService.Setup(s => s.SendMessage(It.IsAny<string>()))
-                .Callback<string>(s => receivedMessage = s);
-            chatService.Setup(s => s.SendMessageAsync(It.IsAny<string>()))
-                .Returns(() => Task.CompletedTask)
-                .Callback<string>(s => receivedMessage = s);
+            chatService.Setup(s => s.SendMessage(It.IsAny<SendMessageRequest>()))
+                .Returns<SendMessageRequest>(request => new SendMessageResponse {Success = true})
+                .Callback<SendMessageRequest>(request => receivedMessage = request.Message);
+            chatService.Setup(s => s.SendMessageAsync(It.IsAny<SendMessageRequest>()))
+                .Returns<SendMessageRequest>(request => Task.FromResult(new SendMessageResponse {Success = true}))
+                .Callback<SendMessageRequest>(request => receivedMessage = request.Message);
 
             var chatServiceFactory = new Mock<IChatServiceFactory>();
             chatServiceFactory.Setup(

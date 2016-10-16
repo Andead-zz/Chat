@@ -1,4 +1,6 @@
-﻿namespace Andead.Chat.Resources.Resources.Strings
+﻿using Andead.Chat.Common.Policy;
+
+namespace Andead.Chat.Common.Resources.Strings
 {
     /// <summary>
     ///     Contains server error messages.
@@ -12,5 +14,16 @@
         public static readonly string AlreadySignedIn = "You are already in the chat.";
 
         public static readonly string NameAlreadyTaken = "The name has been taken by someone else.";
+
+        public static readonly string NameLengthExceededLimits = "The name length must be not greater than 50.";
+
+        public static readonly string AccessDenied = "Access denied";
+
+        public static readonly string InvalidRequest = "Invalid request";
+
+        public static readonly string MessageEmpty = "Message cannot be empty";
+
+        public static readonly string MessageLengthMustBeWithinLimits =
+            $"Message length must be not greater than {Limits.MessageMaxLength}";
     }
 }

@@ -12,8 +12,8 @@ namespace Andead.Chat.Server
         [OperationContract]
         void SignOut();
 
-        [OperationContract(IsOneWay = true)]
-        void SendMessage(string message);
+        [OperationContract]
+        SendMessageResponse SendMessage(SendMessageRequest request);
 
         [OperationContract]
         int? GetOnlineCount();

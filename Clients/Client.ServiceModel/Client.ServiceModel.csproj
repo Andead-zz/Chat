@@ -34,6 +34,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\ConnectionConfiguration.cs" />
@@ -54,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="Service References\ChatService\Andead.Chat.Client.ServiceModel.ChatService.SendMessageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\ChatService\Andead.Chat.Client.ServiceModel.ChatService.SignInResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
